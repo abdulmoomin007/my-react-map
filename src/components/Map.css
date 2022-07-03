@@ -1,5 +1,67 @@
+.container {
+    display: grid;
+    margin: 2rem 0;
+    grid-template-columns: 2fr 1fr;
+}
+
+tr, td {
+    padding: .5rem;
+}
+
+
+
 #map {
+    height: 50vh;
+}
+
+#listing {
+    overflow: auto;
+    cursor: pointer;
+    overflow-x: hidden;
+}
+
+#resultsTable {
+    border-collapse: collapse;
+    /* border: 1em solid transparent; */
+}
+
+.iw_table_row {
+    height: 18px;
+}
+
+/* #map {
     height: 400px;
+    margin: 3em auto 0 0;
+    width: 80vw;
     width: 100%;
     background-color: lightcyan;
 }
+
+#listing {
+    position: absolute;
+    width: 200px;
+    height: 470px;
+    overflow: auto;
+    left: 442px;
+    top: 0px;
+    cursor: pointer;
+    overflow-x: hidden;
+}
+
+#resultsTable {
+    border-collapse: collapse;
+    width: 240px;
+}
+
+.iw_table_row {
+    height: 18px;
+}
+  
+.iw_attribute_name {
+    font-weight: bold;
+    text-align: right;
+}
+  
+.iw_table_icon {
+    text-align: right;
+} */
