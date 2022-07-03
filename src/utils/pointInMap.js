@@ -2,12 +2,17 @@ import points from "../dev-data/points";
 import getDistance from "./getDistance";
 
 let markers = [];
+let infoWindow;
 
 function pointInMap(ref, lat, lng, infoRef, setCoords, setList) {
   markers.forEach((marker) => {
     marker.setMap(null);
   });
   markers = [];
+  infoWindow = new window.google.maps.InfoWindow({
+    content: infoRef.current,
+  });
+
   const currentLocation = { lat, lng };
   // The map, centered at currentLocation
   const map = new window.google.maps.Map(ref, {
@@ -37,7 +42,7 @@ function pointInMap(ref, lat, lng, infoRef, setCoords, setList) {
       window.google.maps.event.addListener(
         markers[index],
         "click",
-        handleMarkerClick(map, point, infoRef, setCoords)
+        handleMarkerClick(map, point, infoWindow, setCoords)
       );
     }
   });
@@ -54,16 +59,14 @@ function pointInMap(ref, lat, lng, infoRef, setCoords, setList) {
   window.google.maps.event.addListener(
     markers[markers.length - 1],
     "click",
-    handleMarkerClick(map, currentLocation, infoRef, setCoords)
+    handleMarkerClick(map, currentLocation, infoWindow, setCoords)
   );
 }
 
-const handleMarkerClick = (map, point, infoRef, setCoords) => {
+const handleMarkerClick = (map, point, infoWindow, setCoords) => {
   return function () {
+    infoWindow.close();
     const marker = this;
-    const infoWindow = new window.google.maps.InfoWindow({
-      content: infoRef.current,
-    });
     setCoords(point);
     infoWindow.open(map, marker);
   };
