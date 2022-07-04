@@ -13,7 +13,7 @@ const render = (status) => {
     case Status.FAILURE:
       return <div>Error: Cannot Load!</div>;
     case Status.SUCCESS:
-      return <Map center={{ lat, lng }} zoom={8} />;
+      return <Map center={{ lat, lng }} zoom={13} />;
     default:
       return <div>Loading...</div>;
   }

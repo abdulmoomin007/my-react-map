@@ -3,11 +3,12 @@ import points from "../dev-data/points";
 let markers = [];
 
 class CustomMap {
-  constructor(refs, coords, methods, maps) {
+  constructor(refs, coords, methods, maps, zoom) {
     this.refs = refs;
     this.coords = coords;
     this.methods = methods;
     this.maps = maps;
+    this.zoom = zoom;
     this.infoWindow = new this.maps.InfoWindow({
       content: this.refs.infoRef.current,
     });
@@ -61,7 +62,7 @@ class CustomMap {
     const currentLocation = this.coords;
     // The map, centered at currentLocation
     const map = new this.maps.Map(this.refs.mapRef.current, {
-      zoom: 13,
+      zoom: this.zoom,
       center: currentLocation,
       mapTypeControl: false,
       panControl: false,

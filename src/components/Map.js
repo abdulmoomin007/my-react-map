@@ -21,9 +21,10 @@ export default function Map({ center, zoom }) {
       { mapRef, infoRef, inputRef },
       { lat, lng },
       { setList, setCoords },
-      window.google.maps
+      window.google.maps,
+      zoom
     );
-  }, [lat, lng]);
+  }, [lat, lng, zoom]);
 
   useEffect(() => {
     const init = async function () {
