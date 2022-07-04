@@ -1,0 +1,9 @@
+.row {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    font-size: 80%;
+}
+
+.row > img {
+    height: 4rem;
+}

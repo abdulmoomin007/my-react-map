@@ -1,20 +1,19 @@
 .container {
     display: grid;
     margin: 2rem 0;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 1fr;
 }
 
 tr, td {
-    padding: .5rem;
+    padding: .2rem;
 }
-
-
 
 #map {
     height: 50vh;
 }
 
 #listing {
+    height: 50vh;
     overflow: auto;
     cursor: pointer;
     overflow-x: hidden;
@@ -25,9 +24,13 @@ tr, td {
     /* border: 1em solid transparent; */
 }
 
-.iw_table_row {
-    height: 18px;
+#results {
+    width: 100%;
 }
+
+/* .iw_table_row {
+    height: 18px;
+} */
 
 /* #map {
     height: 400px;

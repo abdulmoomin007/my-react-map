@@ -1,4 +1,4 @@
-import points from "../dev-data/points";
+import points from "../dev-data/customerData";
 
 let markers = [];
 
@@ -96,28 +96,28 @@ class CustomMap {
     });
 
     // The marker, positioned at currentLocation
-    this.methods.setList((list) => [...list, currentLocation]);
-    markers.push(
-      new this.maps.Marker({
-        position: currentLocation,
-        map: map,
-        animation: this.maps.Animation.DROP,
-      })
-    );
+    // this.methods.setList((list) => [...list, currentLocation]);
+    // markers.push(
+    //   new this.maps.Marker({
+    //     position: currentLocation,
+    //     map: map,
+    //     animation: this.maps.Animation.DROP,
+    //   })
+    // );
 
-    this.maps.event.addListener(
-      markers[markers.length - 1],
-      "click",
-      this.handleMarkerClick(map, currentLocation)
-    );
+    // this.maps.event.addListener(
+    //   markers[markers.length - 1],
+    //   "click",
+    //   this.handleMarkerClick(map, currentLocation)
+    // );
   }
 
   handleMarkerClick = (map, point) => {
-    const { setCoords } = this.methods;
+    const { setCustomerData } = this.methods;
     const infoWindow = this.infoWindow;
     return function () {
       const marker = this;
-      setCoords(point);
+      setCustomerData(point);
       infoWindow.open(map, marker);
     };
   };

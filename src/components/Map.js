@@ -6,7 +6,17 @@ import "./Map.css";
 
 export default function Map({ center, zoom }) {
   const [pinCode, setPinCode] = useState("");
-  const [coords, setCoords] = useState({ lat: null, lng: null });
+  const [customerData, setCustomerData] = useState({
+    lat: null,
+    lng: null,
+    firstName: "",
+    lastName: "",
+    status: "",
+    address: "",
+    mobile: "",
+    starRating: "",
+    image: "",
+  });
   const [list, setList] = useState([]);
 
   const mapRef = useRef();
@@ -20,7 +30,7 @@ export default function Map({ center, zoom }) {
     return new CustomMap(
       { mapRef, infoRef, inputRef },
       { lat, lng },
-      { setList, setCoords },
+      { setList, setCustomerData },
       window.google.maps,
       zoom
     );
@@ -70,12 +80,28 @@ export default function Map({ center, zoom }) {
           <table>
             <tbody>
               <tr id="iw-coord-row" className="iw_table_row">
-                <td id="iw-lat-attribute">Lat: </td>
-                <td id="iw-lat">{coords.lat}</td>
+                <th id="iw-lat-attribute">Name: </th>
+                <td id="iw-lat">
+                  {customerData.firstName} {customerData.lastName}
+                </td>
               </tr>
               <tr id="iw-coord-row" className="iw_table_row">
-                <td id="iw-lng-attribute">Lng: </td>
-                <td id="iw-lng">{coords.lng}</td>
+                <th id="iw-lng-attribute">Address: </th>
+                <td id="iw-lng">{customerData.address}</td>
+              </tr>
+              <tr id="iw-coord-row" className="iw_table_row">
+                <th id="iw-lng-attribute">Phone Number: </th>
+                <td id="iw-lng">{customerData.mobile}</td>
+              </tr>
+              <tr id="iw-coord-row" className="iw_table_row">
+                <th id="iw-lng-attribute">Rating: </th>
+                <td id="iw-lng">
+                  {[0, 0, 0, 0, 0].map((el, i) => {
+                    const rating = Number(customerData.starRating);
+                    if (rating >= i + 1) return "⭐";
+                    else return "";
+                  })}
+                </td>
               </tr>
             </tbody>
           </table>
