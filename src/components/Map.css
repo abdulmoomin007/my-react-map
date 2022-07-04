@@ -2,6 +2,7 @@
     display: grid;
     margin: 2rem 0;
     grid-template-columns: 3fr 1fr;
+    grid-gap: 1rem;
 }
 
 tr, td {
