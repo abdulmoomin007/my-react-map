@@ -82,7 +82,9 @@ export default function Map({ center, zoom }) {
               <tr id="iw-coord-row" className="iw_table_row">
                 <th id="iw-lat-attribute">Name: </th>
                 <td id="iw-lat">
-                  {customerData.firstName} {customerData.lastName}
+                  <a href="#">
+                    {customerData.firstName} {customerData.lastName}
+                  </a>
                 </td>
               </tr>
               <tr id="iw-coord-row" className="iw_table_row">
