@@ -1,5 +1,3 @@
-import points from "../dev-data/customerData";
-
 let markers = [];
 
 class CustomMap {
@@ -56,7 +54,7 @@ class CustomMap {
     return [lat, lng];
   }
 
-  pointInMap() {
+  pointInMap(points) {
     this.clearMarkers();
 
     const currentLocation = this.coords;

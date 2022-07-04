@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import CustomMap from "../utils/CustomMap";
 import Listing from "./Listing";
+import points from "../dev-data/customerData";
 
 import "./Map.css";
 
@@ -18,6 +19,7 @@ export default function Map({ center, zoom }) {
     image: "",
   });
   const [list, setList] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const mapRef = useRef();
   const infoRef = useRef();
@@ -41,10 +43,10 @@ export default function Map({ center, zoom }) {
       const [lati, lngi] = await map.getCurrentLatLng();
       setLat(lati);
       setLng(lngi);
+      map.pointInMap(filteredData);
     };
     init();
-    map.pointInMap();
-  }, [map]);
+  }, [map, filteredData]);
 
   return (
     <Fragment>
@@ -67,7 +69,8 @@ export default function Map({ center, zoom }) {
             let [lati, lngi] = await map.pointToAddress();
             map.coords.lat = lati;
             map.coords.lng = lngi;
-            map.pointInMap();
+            setFilteredData(points);
+            map.pointInMap(filteredData);
           }}
         />
       </form>
