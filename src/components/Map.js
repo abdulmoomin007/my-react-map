@@ -1,8 +1,5 @@
 import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import CustomMap from "../utils/CustomMap";
-// import getCurrentLatLng from "../utils/getCurrentLatLng";
-// import pointInMap from "../utils/pointInMap";
-// import pointToAddress from "../utils/pointToAddress";
 import Listing from "./Listing";
 
 import "./Map.css";

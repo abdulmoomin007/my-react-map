@@ -38,7 +38,7 @@ class CustomMap {
   async getLatLngFromZipCode(zipCode) {
     let geocoder = new this.maps.Geocoder();
     let [lat, lng] = [0, 0];
-    await geocoder.geocode({ address: zipCode }, function (results, status) {
+    await geocoder.geocode({ address: zipCode }, (results, status) => {
       if (status === this.maps.GeocoderStatus.OK) {
         lat = results[0].geometry.location.lat();
         lng = results[0].geometry.location.lng();
@@ -50,16 +50,13 @@ class CustomMap {
   }
 
   async pointToAddress() {
-    const zipCode = this.refs.zipCode.current.value;
+    const zipCode = this.refs.inputRef.current.value;
     const [lat, lng] = await this.getLatLngFromZipCode(zipCode);
     return [lat, lng];
   }
 
   pointInMap() {
-    markers.forEach((marker) => {
-      marker.setMap(null);
-    });
-    markers = [];
+    this.clearMarkers();
 
     const currentLocation = this.coords;
     // The map, centered at currentLocation
@@ -123,6 +120,13 @@ class CustomMap {
       infoWindow.open(map, marker);
     };
   };
+
+  clearMarkers() {
+    markers.forEach((marker) => {
+      marker.setMap(null);
+    });
+    markers = [];
+  }
 }
 
 export default CustomMap;
