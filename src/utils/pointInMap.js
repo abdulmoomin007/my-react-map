@@ -65,7 +65,6 @@ function pointInMap(ref, lat, lng, infoRef, setCoords, setList) {
 
 const handleMarkerClick = (map, point, infoWindow, setCoords) => {
   return function () {
-    infoWindow.close();
     const marker = this;
     setCoords(point);
     infoWindow.open(map, marker);

@@ -1,4 +1,4 @@
-import { markers } from "../utils/pointInMap";
+import { markers } from "../utils/CustomMap";
 
 const Listing = ({ list }) => {
   let render = list.map((item, i) => (

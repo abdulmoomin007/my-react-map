@@ -1,7 +1,8 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import getCurrentLatLng from "../utils/getCurrentLatLng";
-import pointInMap from "../utils/pointInMap";
-import pointToAddress from "../utils/pointToAddress";
+import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import CustomMap from "../utils/CustomMap";
+// import getCurrentLatLng from "../utils/getCurrentLatLng";
+// import pointInMap from "../utils/pointInMap";
+// import pointToAddress from "../utils/pointToAddress";
 import Listing from "./Listing";
 
 import "./Map.css";
@@ -11,22 +12,31 @@ export default function Map({ center, zoom }) {
   const [coords, setCoords] = useState({ lat: null, lng: null });
   const [list, setList] = useState([]);
 
-  const ref = useRef();
+  const mapRef = useRef();
   const infoRef = useRef();
+  const inputRef = useRef();
+
   const [lat, setLat] = useState(center.lat);
   const [lng, setLng] = useState(center.lng);
 
-  useEffect(function () {
-    (async function () {
-      const [lati, lngi] = await getCurrentLatLng();
-      setLat(lati);
-      setLng(lngi);
-    })();
-  }, []);
+  const map = useMemo(() => {
+    return new CustomMap(
+      { mapRef, infoRef, inputRef },
+      { lat, lng },
+      { setList, setCoords },
+      window.google.maps
+    );
+  }, [lat, lng]);
 
   useEffect(() => {
-    pointInMap(ref.current, lat, lng, infoRef, setCoords, setList);
-  }, [lat, lng, zoom]);
+    const init = async function () {
+      const [lati, lngi] = await map.getCurrentLatLng();
+      setLat(lati);
+      setLng(lngi);
+    };
+    init();
+    map.pointInMap();
+  }, [map]);
 
   return (
     <Fragment>
@@ -35,6 +45,7 @@ export default function Map({ center, zoom }) {
         <input
           type="text"
           value={pinCode}
+          ref={inputRef}
           id="zipCode"
           onChange={(e) => {
             setPinCode(e.target.value);
@@ -45,13 +56,15 @@ export default function Map({ center, zoom }) {
           value={"Go"}
           onClick={async (event) => {
             event.preventDefault();
-            let [lati, lngi] = await pointToAddress(event);
-            pointInMap(ref.current, lati, lngi, infoRef, setCoords, setList);
+            let [lati, lngi] = await map.pointToAddress();
+            map.coords.lat = lati;
+            map.coords.lng = lngi;
+            map.pointInMap();
           }}
         />
       </form>
       <div className="container">
-        <div ref={ref} id="map"></div>
+        <div ref={mapRef} id="map"></div>
         <Listing list={list} />
       </div>
       <div style={{ display: "none" }}>
